@@ -1,0 +1,394 @@
+Lesson: tuple vs list vs numpy.ndarray
+Goals
+After completing this lesson, you will be able to...
+Recognize the appropriate uses for a tuple, list, and numpy.ndarray
+Identify whether a situation calls for a tuple, list, and numpy.ndarray
+Utilize tuples, lists, and numpy.ndarrays in conjunction with one another
+Preview
+This lesson contains the following information:
+The three main collection types built into Python (tuple, list, and numpy.ndarray)
+The the differences between tuples, lists, and numpy.ndarray
+Tuples, lists, and numpy.ndarrays should be utilized in different situations and for different purposes
+Each collection type has its strengths and weaknesses: knowing about and understanding them will make your code clean and prevent errors
+the list and the tuple are two Sequences and Collections in the builtins
+a Sequence is any type that can be indexed with x[idx] or sliced with x[start:stop:step] syntax
+the list and tuple differ in that…
+Explore
+First, for a quick refresh.
+These three tools are the main collection types which are built into Python. While they all serve as collection tools, they have many key differences. For a quick breakdown, consult this venn diagram:
+
+
+Here’s a further breakdown of these terms:
+Tuple [two-ple]: A tuple is a collection tool that typically represents a “record” of information. The elements of a tuple represent “fields”. A tuple is typically heterogenous, meaning it can contain values of a different type (integers, strings, etc.)
+
+This is an example of what a tuple looks like:
+
+List: A list is a collection tool that typically represents a “collection” of information. The elements of a list represent “items”. The list is typically homogenous, meaning it generally contains values of the same type.
+
+This is an example of what a list looks like:
+xs = [1, 2, 3]
+t  =  1, 2, 3
+Numpy.ndarray [numb-py N D array]: A Numpy Array is a collection tool that typically represents mathematical values. It typically is self-aware of its contents. 
+	Quick example
+This is an example of what a numpy.ndarray looks like:
+
+
+So, how do you use them practically?
+
+Outline:
+Detail out each point on the venn diagram to illustrate similarities
+Show each type being utilized, getting more detailed with each example to move from basic to more complex (sort by H3s for each type)
+Show an example of the types working together (scientific simulations example)
+
+
+ 
+from collections.abc import Iterable
+xs = [1, 2, 3]
+t  =  1, 2, 3
+print(f'{isinstance(xs, Iterable) = }')
+print(f'{isinstance(t, Iterable)  = }')
+from collections.abc import Collection
+xs = [1, 2, 3]
+t  =  1, 2, 3
+print(f'{isinstance(xs, Collection) = }')
+print(f'{isinstance(t, Collection)  = }')
+from collections.abc import Sequence
+xs = [1, 2, 3]
+t  =  1, 2, 3
+print(f'{isinstance(xs, Sequence) = }')
+print(f'{isinstance(t, Sequence)  = }')
+xs = [1, 2, 3]
+t  =  1, 2, 3
+
+for x in xs: pass
+for f in t: pass
+xs = [1, 2, 3]
+t  =  1, 2, 3
+
+print(f'{1 in xs = }')
+print(f'{1 in t  = }')
+print(f'{len(xs) = }')
+print(f'{len(t)  = }')
+xs = [1, 2, 3]
+t  =  1, 2, 3
+
+print(f'{xs[0]  = }')
+print(f'{t[0]   = }')
+print(f'{xs[0:] = }')
+print(f'{t[0:]  = }')
+from collections.abc import MutableSequence
+xs = [1, 2, 3]
+t  =  1, 2, 3
+print(f'{isinstance(xs, MutableSequence) = }')
+print(f'{isinstance(t, MutableSequence)  = }')
+
+xs[0] = 100
+
+try:
+    t[0] = 100
+except TypeError as e:
+    print(f'Failed: {e}')
+Human vs machine-order:
+s = {'one', 'two', 'three'}
+for x in s:
+    print(f'{x = }')
+s = {'one', 'two', 'three'}
+for x in s:
+    print(f'{x = }')
+
+print('-' * 10)
+
+for x in s:
+    print(f'{x = }')
+from random import choice
+from string import ascii_lowercase
+random_string = lambda n=10: ''.join(choice(ascii_lowercase) for _ in range(n))
+
+s = {'one', 'two', 'three'}
+
+for x in s:
+    print(f'{x = }')
+
+print('-' * 10)
+
+elements = {random_string() for _ in range(10_000)}
+for el in elements:
+    s.add(el)
+for el in elements:
+    s.remove(el)
+
+print('-' * 10)
+
+for x in s:
+    print(f'{x = }')
+# order connotes order of processing
+people = ['Martin Van Buren', 'William Henry Harrison', 'John Tyler']
+people = ['Martin Van Buren', 'John Tyler', 'William Henry Harrison']
+
+# order connotes meaning
+person = 'John', 'Tyler'
+person = 'Tyler', 'John'
+a, b, c = [1, 2, 3]
+a, b, c =  1, 2, 3
+
+print(f'{a = }')
+print(f'{b = }')
+print(f'{c = }')
+a, b, c, *_ = [1, 2, 3, 4, 5, 6, 7]
+a, b, c, *_ =  1, 2, 3 
+
+print(f'{a = }')
+print(f'{b = }')
+print(f'{c = }')
+print(f'{_ = }')
+people = ['Martin Van Buren', 'William Henry Harrison', 'John Tyler']
+for p in people:
+    print(f'{p = }')
+
+person = 'John', 'Tyler'
+name, surname = person
+A tuple typically represents a “record.”
+The elements of a tuple represent “fields.”
+The tuple is typically heterogeneous.
+A list typically represents a “collection.”
+The elements of a list represent “items.”
+The list is typically homogeneous.
+def f(x):
+    pass
+
+xs = [..., ..., ...]
+for x in xs:
+    f(x)
+def f(x):
+    return x.conjugate() + 1
+
+from fractions import Fraction
+from decimal import Decimal
+
+xs = [1, 2.0, 3+4j, True, Fraction(1, 2), Decimal('.5')]
+for x in xs:
+    f(x)
+def f(x):
+    return x % 2
+
+def f(x):
+    return x.bit_length()
+
+from fractions import Fraction
+from decimal import Decimal
+
+xs = [1, 2.0, 3+4j, True, Fraction(1, 2), Decimal('.5')]
+for x in xs:
+    try:
+        f(x)
+    except Exception as e:
+        print(f'Failed on {x}: {e}')
+# the `list` is an “opaque”
+#    collection of items
+xs = [1, 2, 3]
+ys = [4, 5, 6]
+print(f'{xs + ys = }')
+
+xs = [1, 2, 3]
+print(f'{xs * 2 = }')
+xs = [1, 2, 3]
+print(f'{sum(xs) = }')
+from statistics import mean, pvariance
+xs = [1, 2, 3]
+print(f'{pvariance(xs) = }')
+print(f'{mean((x - mean(xs))**2 for x in xs) = }')
+# the `list` has dynamic size
+xs = [1, 2, 3]
+xs.append(4)
+
+# the `list` has fixed (linear) shape
+s = 'a,b;c,d'
+print(f'{s.split(",") = }')
+print(f'{[x.split(";") for x in s.split(",")] = }')
+
+print(f'{[x for x in s.split(",") for x in x.split(";")] = }')
+from numpy import array
+xs = array([1, 2, 3])
+ys = array([4, 5, 6])
+print(f'{xs + ys = }')
+
+xs = array([1, 2, 3])
+print(f'{xs * 2 = }')
+from numpy import array
+xs = array([1, 2, 3])
+print(f'{xs.var() = }')
+print(f'{((xs - xs.mean())**2).mean() = }')
+from pandas import Series
+s = Series(['a,b;c,d'])
+print(s.str.split(',', expand=True))
+print(s.str.split(',', expand=True).T[0].str.split(';', expand=True))
+print(s.str.split(',', expand=True).T[0].str.split(';', expand=True)
+           .reset_index()
+           .melt(id_vars='index')
+           .set_index('index')
+           .sort_index()
+           .dropna()['value'])
+from re import compile as re_compile
+print(f'{re_compile(",|;").split("a,b;c,d") = }')
+from numpy import set_printoptions
+set_printoptions(linewidth=float('inf'), threshold=4)
+from textwrap import indent
+def pprint(code):
+    print(f'{code} = ')
+    print(indent(repr(eval(code)), ' ' * 4))
+
+from numpy import arange
+xs = arange(12)
+pprint('xs')
+pprint('xs.reshape(2, 6)')
+pprint('xs.reshape(3, 4)')
+pprint('xs.reshape(3, 2, 2)')
+from numpy import array
+xs = array([1, 2, 3])
+print(f'{xs.dtype = }')
+print(f'{xs = }')
+xs.dtype = 'int8'
+print(f'{xs = }')
+Restricted computational domain.
+xs = [1, 2, 3]
+
+# PEP-8: ×
+if len(xs) > 0:
+    pass
+
+# PEP-8: ×
+if len(xs):
+    pass
+
+# PEP-8: ✓
+if xs:
+    pass
+from numpy import array
+
+xs = array([1, 2, 3])
+if xs:
+    pass
+from numpy import array
+
+xs = array([1, 2, 3])
+if xs.any():
+    pass
+from numpy import array
+
+xs = array([1, 2, 3])
+if xs.size:
+    pass
+from sys import version_info
+assert version_info.major == 2
+
+from __future__ import division # Python 2 "pragma"
+def f(x, y):
+    return x / y
+
+# disambiguate two modalities:
+# - floor division
+# - true division
+print 'f( 1,  2)  =', f( 1,  2)
+print 'f( 1., 2)  =', f( 1., 2)
+print 'f( 1,  2.) =', f( 1,  2.)
+print 'f( 1., 2.) =', f( 1., 2.)
+from sys import version_info
+assert version_info.major == 3
+
+def f(x, y):
+    return x / y
+
+# disambiguate two modalities:
+# - floor division
+# - true division
+print(f'{f( 1,  2)  = }')
+print(f'{f( 1., 2)  = }')
+print(f'{f( 1,  2.) = }')
+print(f'{f( 1., 2.) = }')
+from numpy import array
+
+def f(xs):
+    if xs:
+        pass
+
+f('123')
+f((1, 2, 3))
+f([1, 2, 3])
+f({1, 2, 3})
+f({1: 1, 2: 4, 3: 9})
+f(array([1, 2, 3]))
+from numpy.random import normal
+
+simulations = [
+    normal(size=10_000), 
+    normal(size=10_000), 
+    normal(size=10_000), 
+]
+from numpy.random import normal
+
+simulations = [
+    # input-x             input-y
+    (normal(size=10_000), normal(size=10_000),),
+    (normal(size=10_000), normal(size=10_000),),
+    (normal(size=10_000), normal(size=10_000),),
+]
+from numpy.random import normal
+from collections import namedtuple
+
+Simulation = namedtuple('SimulationBase', 'title x y')
+class Result(namedtuple('ResultBase', 'simulation result')):
+    sim = property(lambda s: s.simulation)
+    res = property(lambda s: s.result)
+
+simulations = [
+    Simulation('Sim #1', normal(size=10_000), normal(size=10_000),),
+    Simulation('Sim #2', normal(size=10_000), normal(size=10_000),),
+    Simulation('Sim #3', normal(size=10_000), normal(size=10_000),),
+]
+
+results = []
+for sim in simulations:
+    res = sim.x + sim.y
+    results.append(Result(sim, res))
+
+for res in results:
+    print(res.sim.title.center(50, '-'))
+    print(f'{res.res.mean() = }')
+Practice
+Task 1: Remove the duplicates from the list below while still preserving its order.
+
+# TASK: remove duplicates from the below `list`, preserving its order
+xs = [1, 1, 2, 3, 5, 1, 6, 7, 8]
+def remove_duplicates(xs):
+    pass
+assert remove_duplicates(xs) == [1, 2, 3, 5, 6, 7, 8]
+
+Task 2: Given the following data, write a set of tuple(s), list(s), and numpy.ndarray(s) that would sort a collection of personnel files by division within a company.
+
+Example data
+ 
+Check
+Task 1: Possible solution
+
+# TASK: remove duplicates from the below `list`, preserving its order
+xs = [1, 1, 2, 3, 5, 1, 6, 7, 8]
+def remove_duplicates(xs):
+    seen = set()
+    rv = []
+    for x in xs:
+        if x not in seen:
+            rv.append(x)
+            seen.add(x)
+    return rv
+assert remove_duplicates(xs) == [1, 2, 3, 5, 6, 7, 8]
+Task 2: Possible solution
+
+Example solution
+Reference
+the built-in types
+the list
+https://www.w3schools.com/python/python_lists.asp
+https://www.w3schools.com/python/python_tuples.asp
+https://www.w3schools.com/python/numpy_creating_arrays.asp
+
+
